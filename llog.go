@@ -56,7 +56,7 @@ type Log struct {
 	writerErr io.Writer
 }
 
-var logDefault Log = Log{level: LInfo, prefix: "LLOG", writer: os.Stdout, writerErr: os.Stderr}
+var logDefault Log = Log{level: LInfo, prefix: "LLOG", writer: os.Stderr, writerErr: os.Stderr}
 
 var log *Log = &logDefault
 
@@ -163,7 +163,6 @@ func (l *Log) logf(level LogLevel, format string, v ...any) {
 
 // Log to writer and then panic with the same message
 func (l *Log) Panic(v ...any) {
-	l.log(LPanic, v...)
 	panic(l.logs(LPanic, v...))
 }
 
@@ -190,7 +189,6 @@ func (l *Log) Debug(v ...any) {
 
 // Log to writer and then panic with the same message
 func (l *Log) Panicf(format string, v ...any) {
-	l.logf(LPanic, format, v...)
 	panic(l.logsf(LPanic, format, v...))
 }
 
